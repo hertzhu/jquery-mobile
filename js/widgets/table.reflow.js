@@ -4,62 +4,84 @@
 //>>group: Widgets
 //>>css.structure: ../css/structure/jquery.mobile.table.reflow.css
 
-
-define( [ "jquery", "./table" ], function( $ ) {
+define( [ "jquery", "./table" ], function( jQuery ) {
 //>>excludeEnd("jqmBuildExclude");
 (function( $, undefined ) {
 
-$.mobile.table.prototype.options.mode = "reflow";
+$.widget( "mobile.table", $.mobile.table, {
+	options: {
+		mode: "reflow",
+		classes: $.extend( $.mobile.table.prototype.options.classes, {
+			reflowTable: "ui-table-reflow",
+			cellLabels: "ui-table-cell-label"
+		})
+	},
 
-$.mobile.table.prototype.options.classes = $.extend(
-	$.mobile.table.prototype.options.classes,
-	{
-		reflowTable: "ui-table-reflow",
-		cellLabels: "ui-table-cell-label"
-	}
-);
+	_create: function() {
+		this._super();
 
-$.mobile.document.delegate( ":jqmData(role='table')", "tablecreate", function() {
+		// If it's not reflow mode, return here.
+		if ( this.options.mode !== "reflow" ) {
+			return;
+		}
 
-	var $table = $( this ),
-		self = $table.data( "mobile-table" ),
-		o = self.options;
+		if ( !this.options.enhanced ) {
+			this.element.addClass( this.options.classes.reflowTable );
 
-	// If it's not reflow mode, return here.
-	if( o.mode !== "reflow" ){
-		return;
-	}
+			this._updateReflow();
+		}
+	},
 
-	self.element.addClass( o.classes.reflowTable );
+	rebuild: function() {
+		this._super();
 
-	// get headers in reverse order so that top-level headers are appended last
-	var reverseHeaders =  $( self.allHeaders.get().reverse() );
+		if ( this.options.mode === "reflow" ) {
+			this._refresh( false );
+		}
+	},
 
-	// create the hide/show toggles
-	reverseHeaders.each(function(i){
-		var $cells = $( this ).jqmData( "cells" ),
-			colstart = $( this ).jqmData( "colstart" ),
-			hierarchyClass = $cells.not( this ).filter( "thead th" ).length && " ui-table-cell-label-top",
-			text = $(this).text();
+	_refresh: function( create ) {
+		this._super( create );
+		if ( !create && this.options.mode === "reflow" ) {
+			this._updateReflow( );
+		}
+	},
 
-			if( text !== ""  ){
+	_updateReflow: function() {
+		var table = this,
+			opts = this.options;
 
-				if( hierarchyClass ){
-					var iteration = parseInt( $( this ).attr( "colspan" ), 10 ),
+		// get headers in reverse order so that top-level headers are appended last
+		$( table.allHeaders.get().reverse() ).each( function() {
+			var cells = $( this ).jqmData( "cells" ),
+				colstart = $.mobile.getAttribute( this, "colstart" ),
+				hierarchyClass = cells.not( this ).filter( "thead th" ).length && " ui-table-cell-label-top",
+				text = $( this ).text(),
+				iteration, filter;
+
+				if ( text !== ""  ) {
+
+					if ( hierarchyClass ) {
+						iteration = parseInt( this.getAttribute( "colspan" ), 10 );
 						filter = "";
 
-					if( iteration ){
-						filter = "td:nth-child("+ iteration +"n + " + ( colstart ) +")";
+						if ( iteration ) {
+							filter = "td:nth-child("+ iteration +"n + " + ( colstart ) +")";
+						}
+
+						table._addLabels( cells.filter( filter ), opts.classes.cellLabels + hierarchyClass, text );
+					} else {
+						table._addLabels( cells, opts.classes.cellLabels, text );
 					}
-					$cells.filter( filter ).prepend( "<b class='" + o.classes.cellLabels + hierarchyClass + "'>" + text + "</b>"  );
-				}
-				else {
-					$cells.prepend( "<b class='" + o.classes.cellLabels + "'>" + text + "</b>"  );
-				}
 
-			}
-	});
+				}
+		});
+	},
 
+	_addLabels: function( cells, label, text ) {
+		// .not fixes #6006
+		cells.not( ":has(b." + label + ")" ).prepend( "<b class='" + label + "'>" + text + "</b>"  );
+	}
 });
 
 })( jQuery );

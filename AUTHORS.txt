@@ -186,7 +186,6 @@ Adria Jimenez <ajimix@gmail.com>
 Pavel Savara <pavel.savara@gmail.com>
 Alexander Casassovici <alex@ksso.net>
 Nicholas Hall <ngharo@gmail.com>
-Gabriel Schulhof <gabriel.schulhof@intel.com>
 Adrian Pike <adrian@pikeapps.com>
 Dirk Heider <dirk.00heider@gmail.com>
 Darío Javier Cravero <dario@q-innova.com.ar>
@@ -195,3 +194,48 @@ Corey Frang <gnarf@gnarf.net>
 Michael Ridland <rid00z@gmail.com>
 Brian Edgerton <bedgerton@appendto.com>
 Marcin Szczepanski <marcins@gmail.com>
+Robin Helgelin <robin@connectedtable.com>
+Elijah Manor <elijah.manor@gmail.com>
+Eric Caron <eric.caron@gmail.com>
+Jeroen Van Warmerdam <jeronevw@hotmail.com>
+Ryan McGeary <ryan@mcgeary.org>
+Jonah Schulte <jonah.schulte@dealer.com>
+Alexander Schmitz <arschmitz@gmail.com>
+Keith Pepin <kp_myrlyn@yahoo.com>
+Greg Franko <gregfranko5@gmail.com>
+Jeffrey Lembeck <jlembeck@gmail.com>
+Collin Forrester <collin.forrester@gmail.com>
+Timo Tijhof <krinklemail@gmail.com>
+Erwan MAS <erwan@mas.nom.fr>
+Jordan Harband <ljharb@gmail.com>
+Changsuk Ha <csha71@gmail.com>
+Oiva Eskola <oiva.eskola@gmail.com>
+Erik Yuzwa <erik@erikyuzwa.com>
+Jonathan Hogervorst <jonathan@hogervorst.info>
+Przemyslaw Ciezkowski <p.ciezkowski@samsung.com>
+Max Lynch <max@codiqa.com>
+John Chacko <poonkave@gmail.com>
+Ralph Whitbeck <ralph.whitbeck@gmail.com>
+Jonathan Sampson <jjdsampson@gmail.com>
+Tomas Cassidy <tomas.cassidy@gmail.com>
+Aurelio De Rosa <aurelioderosa@gmail.com>
+Brandon Belvin <brandon@belvinfamily.com>
+Sven Franck <svenfranck@yahoo.com>
+Andrew Johnson <inharmony88@gmail.com>
+Kangsik Kim <allsteady@gmail.com>
+Craig Patik <cpatik@gmail.com>
+Rob Schmuecker <robert.schmuecker@gmail.com>
+Pere Orga <gotrunks@gmail.com>
+Spencer Oberstadt <soberstadt@gmail.com>
+Richard Pangborn <rpangborn@gmail.com>
+Rocco Georgi <rocco@pavingways.com>
+Hyunsook Park <hspark.dasom@gmail.com>
+Cristi Citea <cristi.catea@gmail.com>
+Calvin Tam <calvinyhtam@gmail.com>
+Patrick Stapleton <github@gdi2290.com>
+Lou Franco <lfranco@greenwave-solutions.com>
+Vasu Bhardwaj <voodoorapter014@gmail.com>
+Richard McDaniel <rm0026@uah.edu>
+Timothy Elliott <tle@holymonkey.com>
+Florian Böhle <boehle@fzi.de>
+Marcus Krahl <marcuskrahl@googlemail.com>

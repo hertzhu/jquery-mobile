@@ -5,42 +5,60 @@
 //>>css.structure: ../css/structure/jquery.mobile.navbar.css
 //>>css.theme: ../css/themes/default/jquery.mobile.theme.css
 
-
-define( [ "jquery", "../jquery.mobile.widget", "../jquery.mobile.buttonMarkup", "../jquery.mobile.grid" ], function( $ ) {
+define( [ "jquery", "../widget", "../grid" ], function( jQuery ) {
 //>>excludeEnd("jqmBuildExclude");
 (function( $, undefined ) {
 
-$.widget( "mobile.navbar", $.mobile.widget, {
+$.widget( "mobile.navbar", {
 	options: {
 		iconpos: "top",
-		grid: null,
-		initSelector: ":jqmData(role='navbar')"
+		grid: null
 	},
 
 	_create: function() {
 
 		var $navbar = this.element,
 			$navbtns = $navbar.find( "a" ),
-			iconpos = $navbtns.filter( ":jqmData(icon)" ).length ?
-									this.options.iconpos : undefined;
+			iconpos = $navbtns.filter( ":jqmData(icon)" ).length ? this.options.iconpos : undefined;
 
-		$navbar.addClass( "ui-navbar ui-mini" )
+		$navbar.addClass( "ui-navbar" )
 			.attr( "role", "navigation" )
 			.find( "ul" )
 			.jqmEnhanceable()
 			.grid({ grid: this.options.grid });
 
-		$navbtns.buttonMarkup({
-			corners:	false,
-			shadow:		false,
-			inline:     true,
-			iconpos:	iconpos
-		});
+		$navbtns
+			.each( function() {
+				var icon = $.mobile.getAttribute( this, "icon" ),
+					theme = $.mobile.getAttribute( this, "theme" ),
+					classes = "ui-btn";
 
-		$navbar.delegate( "a", "vclick", function( event ) {
-			if ( !$(event.target).hasClass( "ui-disabled" ) ) {
+				if ( theme ) {
+					classes += " ui-btn-" + theme;
+				}
+				if ( icon ) {
+					classes += " ui-icon-" + icon + " ui-btn-icon-" + iconpos;
+				}
+				$( this ).addClass( classes );
+			});
+
+		$navbar.delegate( "a", "vclick", function( /* event */ ) {
+			var activeBtn = $( this );
+
+			if ( !( activeBtn.hasClass( "ui-state-disabled" ) ||
+
+				// DEPRECATED as of 1.4.0 - remove after 1.4.0 release
+				// only ui-state-disabled should be present thereafter
+				activeBtn.hasClass( "ui-disabled" ) ||
+				activeBtn.hasClass( $.mobile.activeBtnClass ) ) ) {
+
 				$navbtns.removeClass( $.mobile.activeBtnClass );
-				$( this ).addClass( $.mobile.activeBtnClass );
+				activeBtn.addClass( $.mobile.activeBtnClass );
+
+				// The code below is a workaround to fix #1181
+				$( document ).one( "pagehide", function() {
+					activeBtn.removeClass( $.mobile.activeBtnClass );
+				});
 			}
 		});
 
@@ -49,11 +67,6 @@ $.widget( "mobile.navbar", $.mobile.widget, {
 			$navbtns.filter( ".ui-state-persist" ).addClass( $.mobile.activeBtnClass );
 		});
 	}
-});
-
-//auto self-init widgets
-$.mobile.document.bind( "pagecreate create", function( e ) {
-	$.mobile.navbar.prototype.enhanceWithin( e.target );
 });
 
 })( jQuery );
